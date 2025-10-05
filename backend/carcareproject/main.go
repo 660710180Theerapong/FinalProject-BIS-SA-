@@ -77,13 +77,13 @@ func getAllApplicants(c *gin.Context) {
     var applicants []Applicant
     for rows.Next() {
         var applicant Applicant
-        err := rows.Scan(&applicant.ID, &applicant.first_name, &applicant.last_name, &applicant.email, &applicant.phone, &applicant.CreatedAt, &applicant.UpdatedAt)
+        err := rows.Scan(&applicant.ID, &applicant.FirstName, &applicant.LastName, &applicant.EMAIL, &applicant.PHONE, &applicant.CreatedAt, &applicant.UpdatedAt)
         if err != nil {
         }
         applicants = append(applicants, applicant)
     }
 	if applicants == nil {
-		applicants = []Applicants{}
+		applicants = []Applicant{}
 	}
 
 	c.JSON(http.StatusOK, applicants)
