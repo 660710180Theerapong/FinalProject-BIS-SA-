@@ -6,6 +6,7 @@ import Navbar_user from './components/Navbar_user';
 import Login_Page from './pages/Login_Page';
 import Register_Page from './pages/Register_Page';
 import Profile_Page from './pages/Profile_Page';
+import Status_Page from './pages/Status_Page';
 //import UserDashboard from './pages/UserDashboard';
 //import HrDashboard from './pages/HrDashboard';
 
@@ -30,6 +31,7 @@ function App() {
             <Route path="/" element={<Login_Page setAuth={setAuth} />} />
             <Route path="/register" element={<Register_Page />} />
             <Route path="/profile" element={<Profile_Page />} />
+            <Route path="/status" element={<Status_Page />} />
             {/* หน้า private สำหรับ user */}
             {/* <Route
               path="/user"
