@@ -1,36 +1,38 @@
--- สร้างตาราง books
+-- Table 1: applicants
 CREATE TABLE applicants (
-	applicant_id PRIMARY KEY,
-	first_name VARCHAR(255) NOT NULL,
-	last_name VARCHAR(255),
-	email VARCHAR(50) NOT NULL,
-	phon VARCHAR(10) NOT NULL,
-	created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-	updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    applicant_id SERIAL PRIMARY KEY,
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255),
+    email VARCHAR(50) NOT NULL,
+    phone VARCHAR(10) NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Table 2: apply
 CREATE TABLE apply (
-	apply_id PRIMARY KEY,
-	position VARCHAR(100) NOT NULL,
-	file BYTEA,
-	stage VARCHAR(50),
-	FORENCES KEY applicant_id REFERANCE applicants,
-	created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-	updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    apply_id SERIAL PRIMARY KEY,
+    position VARCHAR(100) NOT NULL,
+    file BYTEA,
+    stage VARCHAR(50),
+    applicant_id INT NOT NULL,
+    FOREIGN KEY (applicant_id) REFERENCES applicants(applicant_id) ON DELETE CASCADE,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Table 3: hr
 CREATE TABLE hr (
-	id SERIAL PRIMARY KEY,
-	first_name VARCHAR(255) NOT NULL,
-	last_name VARCHAR(255),
-	email VARCHAR(50) NOT NULL,
-	phon VARCHAR(10) NOT NULL,
-	
-	created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-	updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    id SERIAL PRIMARY KEY,
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255),
+    email VARCHAR(50) NOT NULL,
+    phone VARCHAR(10) NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
--- สร้าง function สำหรับอัพเดท updated_at โดยอัตโนมัติ
+-- Function สำหรับ update updated_at
 CREATE OR REPLACE FUNCTION update_modified_column()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -39,17 +41,27 @@ BEGIN
 END;
 $$ language 'plpgsql';
 
--- สร้าง trigger เพื่อเรียกใช้ function update_modified_column
+-- Trigger สำหรับ applicants
 CREATE TRIGGER update_applicants_modtime
 BEFORE UPDATE ON applicants
 FOR EACH ROW
 EXECUTE FUNCTION update_modified_column();
 
-; -- สร้าง index บน title เพื่อเพิ่มประสิทธิภาพการค้นหา
-; CREATE INDEX idx_applicants_title ON books(title);
+-- Trigger สำหรับ apply
+CREATE TRIGGER update_apply_modtime
+BEFORE UPDATE ON apply
+FOR EACH ROW
+EXECUTE FUNCTION update_modified_column();
 
--- เพิ่มข้อมูล hr
-INSERT INTO books (first_name, last_name, email, phon) VALUES
-    ('Theerapong', 'Poonkwan', 'mofudon@gmail.com', '0922561234'),
-    ('Theerapong', 'rawansa', 'nnnn@gmail.com', '0251234567'),
-    ('Nutkamol', 'Piriyatanasrub', 'monnie@gmail.com', '032123578');
+INSERT INTO hr (first_name, last_name, email, phone) VALUES
+    ('ธีรพงศ์', 'พูนขวัญ', 'mofudon@gmail.com', '0922561234'),
+    ('ธีรพงศ์', 'รวงสา', 'nnnn@gmail.com', '0251234567'),
+    ('นัถกมน', 'พิริยะธนรัต', 'monnie@gmail.com', '032123578');
+
+INSERT INTO applicants (first_name, last_name, email, phone) VALUES
+    ('สมชาย', 'รวยน้อย', 'somchai@gmail.com', '0922145624'),
+    ('สมหญิง', 'รวยมาก', 'somyain@gmail.com', '0957464567');
+
+INSERT INTO apply (position, file, stage, applicant_id) VALUES
+    ('พนักงานล้างรถ', decode('U29tZSBkYXRh', 'base64'), 'รอพิจารณา', 1),
+    ('พนักงานล้างรถ', decode('U29tZSBvdGhlciBkYXRh', 'base64'), 'รอพิจารณา', 2);
