@@ -1,22 +1,57 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+
 // Components
 import Navbar_user from './components/Navbar_user';
 import Login_Page from './pages/Login_Page';
 import Register_Page from './pages/Register_Page';
+import Profile_Page from './pages/Profile_Page';
+//import UserDashboard from './pages/UserDashboard';
+//import HrDashboard from './pages/HrDashboard';
 
 function App() {
+  // state เก็บสถานะ login + role
+  const [auth, setAuth] = useState({
+    isLoggedIn: false,
+    role: null, // 'user' หรือ 'hr'
+  });
+
   return (
     <Router>
-      <div>
+      <div className="min-h-screen flex flex-col">
+        {/* แสดง Navbar เฉพาะตอน login แล้ว */}
         <Navbar_user />
-      </div>
-      <main className="flex-grow bg-gray-50">
+        {/*auth.isLoggedIn && auth.role === 'user' && <Navbar_user />*/}
+        {/*auth.isLoggedIn && auth.role === 'hr' && <div>Navbar HR</div>*/}
+
+        <main className="flex-grow bg-gray-50">
           <Routes>
-            <Route path="/profile" element={<Login_Page />} />
+            {/* หน้า public */}
+            <Route path="/" element={<Login_Page setAuth={setAuth} />} />
             <Route path="/register" element={<Register_Page />} />
+            <Route path="/profile" element={<Profile_Page />} />
+            {/* หน้า private สำหรับ user */}
+            {/* <Route
+              path="/user"
+              element={
+                auth.isLoggedIn && auth.role === 'user'
+                  ? <UserDashboard />
+                  : <Navigate to="/" />
+              }
+            />
+
+            
+            <Route
+              path="/hr"
+              element={
+                auth.isLoggedIn && auth.role === 'hr'
+                  ? <HrDashboard />
+                  : <Navigate to="/" />
+              }
+            /> */}
           </Routes>
-      </main>
+        </main>
+      </div>
     </Router>
   );
 }
