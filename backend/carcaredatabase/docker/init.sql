@@ -25,7 +25,7 @@ CREATE TABLE hr (
     first_name VARCHAR(255) NOT NULL,
     last_name VARCHAR(255),
     email VARCHAR(50) NOT NULL,
-    phone VARCHAR(10) NOT NULL
+    phone VARCHAR(10) NOT NULLgit
 );
 
 -- Function สำหรับ update updated_at
