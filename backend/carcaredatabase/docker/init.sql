@@ -4,13 +4,9 @@ CREATE TABLE applicants (
     first_name VARCHAR(255) NOT NULL,
     last_name VARCHAR(255),
     email VARCHAR(50) NOT NULL,
-<<<<<<< HEAD
     phone VARCHAR(10) NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
-=======
-    phone VARCHAR(10) NOT NULL
->>>>>>> 6a0e90e74a8d7e090ab9d1ed80b027cd0dd9c04d
 );
 
 -- Table 2: apply
@@ -31,13 +27,9 @@ CREATE TABLE hr (
     first_name VARCHAR(255) NOT NULL,
     last_name VARCHAR(255),
     email VARCHAR(50) NOT NULL,
-<<<<<<< HEAD
     phone VARCHAR(10) NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
-=======
-    phone VARCHAR(10) NOT NULLgit
->>>>>>> 6a0e90e74a8d7e090ab9d1ed80b027cd0dd9c04d
 );
 
 -- Function สำหรับ update updated_at

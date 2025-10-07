@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, NavLink } from 'react-router-dom';
-
+import CallUser from "../components/CallUser.jsx";
 
 function HomePage() {
   return (
@@ -13,12 +13,14 @@ function HomePage() {
               <th className="py-3 border">ลำดับ</th>
               <th className="py-3 border">ชื่อ - นามสกุล</th>
               <th className="py-3 border">เวลาล็อกอิน</th>
+              
             </tr>
           </thead>
           <tbody>
             <tr>
               <td colSpan="3" className="py-6 text-gray-500 border">
                 ยังไม่มีข้อมูลผู้ล็อกอินในขณะนี้
+                <CallUser/>
               </td>
             </tr>
           </tbody>
