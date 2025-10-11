@@ -10,7 +10,7 @@ function CallUser() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:8080/api/v1/applicants'); // Replace with your Go API endpoint
+        const response = await fetch('/api/v1/applicants'); // API endpoint
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
