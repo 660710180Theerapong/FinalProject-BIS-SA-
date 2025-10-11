@@ -15,7 +15,7 @@ CREATE TABLE apply (
     position VARCHAR(100) NOT NULL,
     file BYTEA,
     stage VARCHAR(50),
-    applicant_id INT NOT NULL,
+    applicant_id SERIAL,
     FOREIGN KEY (applicant_id) REFERENCES applicants(applicant_id) ON DELETE CASCADE,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
@@ -23,7 +23,7 @@ CREATE TABLE apply (
 
 -- Table 3: hr
 CREATE TABLE hr (
-    id SERIAL PRIMARY KEY,
+    hr_id SERIAL PRIMARY KEY,
     first_name VARCHAR(255) NOT NULL,
     last_name VARCHAR(255),
     email VARCHAR(50) NOT NULL,
@@ -62,6 +62,6 @@ INSERT INTO applicants (first_name, last_name, email, phone) VALUES
     ('สมชาย', 'รวยน้อย', 'somchai@gmail.com', '0922145624'),
     ('สมหญิง', 'รวยมาก', 'somyain@gmail.com', '0957464567');
 
-INSERT INTO apply (position, file, stage, applicant_id) VALUES
-    ('พนักงานล้างรถ', decode('U29tZSBkYXRh', 'base64'), 'รอพิจารณา', 1),
-    ('พนักงานล้างรถ', decode('U29tZSBvdGhlciBkYXRh', 'base64'), 'รอพิจารณา', 2);
+INSERT INTO apply (position, file, stage) VALUES
+    ('พนักงานล้างรถ', decode('U29tZSBkYXRh', 'base64'), 'รอพิจารณา'),
+    ('พนักงานล้างรถ', decode('U29tZSBvdGhlciBkYXRh', 'base64'), 'รอพิจารณา');
