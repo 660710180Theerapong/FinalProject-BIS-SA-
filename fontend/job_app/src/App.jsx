@@ -8,7 +8,7 @@ import Register_Page from './pages/Register_Page';
 import Profile_Page from './pages/Profile_Page';
 import Status_Page from './pages/Status_Page';
 import HomePage from './pages/HomePage';
-
+import HomePage_NotLog from './pages/HomePage_NotLog';
 //import UserDashboard from './pages/UserDashboard';
 //import HrDashboard from './pages/HrDashboard';
 
@@ -30,6 +30,7 @@ function App() {
         <main className="flex-grow bg-gray-50">
           <Routes>
             {/* หน้า public */}
+            <Route path="/" element={<HomePage_NotLog />} />
             <Route path="/" element={<HomePage />} />
             <Route path="/" element={<Login_Page setAuth={setAuth} />} />
             <Route path="/register" element={<Register_Page />} />
