@@ -192,6 +192,9 @@ func getApply(c *gin.Context) {
     c.JSON(http.StatusOK, apply)
 }
 
+//@CrossOrigin(origins = "http://127.0.0.1")
+//@RestController
+//@RequestMapping("/api/v1")
 func createApplicant(c *gin.Context) {
     var newApplicant Applicant
 
