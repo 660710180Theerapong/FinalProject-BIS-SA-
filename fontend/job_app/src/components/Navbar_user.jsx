@@ -47,7 +47,7 @@ const Navbar_user = () => {
               ทดสอบ
             </NavLink>
             <NavLink 
-              to="/notificate" 
+              to="/notification" 
               className={({ isActive }) => 
                 `text-white hover:text-gray-200 transition-colors font-medium ${
                   isActive ? 'text-viridian-600 border-b-2 border-viridian-600' : ''
